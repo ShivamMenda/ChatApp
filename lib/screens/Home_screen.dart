@@ -1,33 +1,38 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class JoinScreen extends StatelessWidget {
+  final void Function() onCreateMeetingButtonPressed;
+  final void Function() onJoinMeetingButtonPressed;
+  final void Function(String) onMeetingIdChanged;
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
+  const JoinScreen({
+    Key? key,
+    required this.onCreateMeetingButtonPressed,
+    required this.onJoinMeetingButtonPressed,
+    required this.onMeetingIdChanged,
+  }) : super(key: key);
 
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
-        title: Text("Chat With Your Peers!"),
-        actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.more_vert)),
-        ],
-      ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 10.0),
-        child: FloatingActionButton(
-          onPressed: () {},
-          child: Icon(Icons.add_comment_rounded),
-          backgroundColor: Colors.black,
-        ),
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+            child: const Text("Create Meeting"),
+            onPressed: onCreateMeetingButtonPressed),
+        const SizedBox(height: 16),
+        TextField(
+            decoration: const InputDecoration(
+              hintText: "Meeting ID",
+              border: OutlineInputBorder(),
+            ),
+            onChanged: onMeetingIdChanged),
+        const SizedBox(height: 8),
+        ElevatedButton(
+          child: const Text("Join"),
+          onPressed: onJoinMeetingButtonPressed,
+        )
+      ],
     );
   }
 }
